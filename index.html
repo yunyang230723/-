@@ -6,95 +6,42 @@
     <title>YUN YANG 雲漾｜靈魂指南針</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;500;700&display=swap');
-        
-        :root { 
-            --雲漾金: #d4b483; 
-            --深邃黑: #0a0a0a; 
-            --霧黑: #161616;
-            --細節金: rgba(212, 180, 131, 0.25); 
-        }
-        
-        body { 
-            background: var(--深邃黑); 
-            font-family: 'Noto Serif TC', serif; 
-            display: flex; 
-            justify-content: center; 
-            margin: 0; 
-            color: #eeeeee;
-            min-height: 100vh;
-        }
-
-        .背景光暈 {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #1c1c1c 0%, #0a0a0a 100%);
-            z-index: -1;
-        }
-
-        .容器 { max-width: 500px; width: 100%; padding: 40px 20px; text-align: center; }
-
-        .品牌標誌 { width: 160px; margin-bottom: 10px; filter: drop-shadow(0 0 10px rgba(212, 180, 131, 0.2)); }
-        
+        :root { --雲漾金: #d4b483; --深邃黑: #0a0a0a; --霧黑: #161616; --細節金: rgba(212, 180, 131, 0.25); }
+        body { background: var(--深邃黑); font-family: 'Noto Serif TC', serif; display: flex; justify-content: center; margin: 0; color: #eeeeee; min-height: 100vh; }
+        .背景光暈 { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, #1c1c1c 0%, #0a0a0a 100%); z-index: -1; }
+        .容器 { max-width: 500px; width: 100%; padding: 40px 20px; text-align: center; box-sizing: border-box; }
+        .品牌標誌 { width: 160px; height: auto; margin-bottom: 10px; filter: drop-shadow(0 0 10px rgba(212, 180, 131, 0.2)); }
         h1 { font-size: 24px; font-weight: 300; color: var(--雲漾金); margin: 5px 0 25px; letter-spacing: 5px; }
-
         .序言 { font-size: 13px; line-height: 2; color: #999; margin-bottom: 35px; letter-spacing: 1px; }
+        input { background: none; border: none; border-bottom: 1px solid var(--雲漾金); font-size: 20px; width: 220px; text-align: center; padding: 10px; outline: none; color: #fff; margin-bottom: 20px; border-radius: 0; }
+        button { background: var(--雲漾金); color: var(--深邃黑); border: none; padding: 12px 60px; font-size: 16px; font-weight: 600; letter-spacing: 3px; cursor: pointer; margin-top: 20px; border-radius: 2px; }
 
-        input { 
-            background: none; border: none; border-bottom: 1px solid var(--雲漾金); 
-            font-size: 20px; width: 220px; text-align: center; padding: 10px; 
-            outline: none; color: #fff; font-family: inherit; margin-bottom: 20px;
-        }
-
-        button { 
-            background: var(--雲漾金); color: var(--深邃黑); border: none;
-            padding: 12px 60px; font-size: 16px; font-weight: 600;
-            letter-spacing: 3px; cursor: pointer; transition: 0.3s;
-            margin-top: 20px; border-radius: 2px;
-        }
-
-        /* 能量矩陣 */
+        /* 能量圖區塊 */
         .能量矩陣 { margin: 40px 0; display: none; flex-direction: column; align-items: center; }
         .層級 { display: flex; margin-bottom: 20px; }
-        .節點 { 
-            width: 45px; height: 45px; line-height: 45px; 
-            border-radius: 50%; border: 1px solid var(--細節金); 
-            margin: 0 10px; font-size: 18px; color: var(--雲漾金); 
-            background: rgba(255,255,255,0.03);
-        }
-        .節點.核心 { 
-            border-color: var(--雲漾金); background: var(--雲漾金); color: var(--深邃黑);
-            box-shadow: 0 0 25px rgba(212, 180, 131, 0.4); transform: scale(1.2);
-        }
+        .節點 { width: 45px; height: 45px; line-height: 45px; border-radius: 50%; border: 1px solid var(--細節金); margin: 0 10px; font-size: 18px; color: var(--雲漾金); background: rgba(255,255,255,0.03); }
+        .節點.核心 { border-color: var(--雲漾金); background: var(--雲漾金); color: var(--深邃黑); box-shadow: 0 0 25px rgba(212, 180, 131, 0.4); transform: scale(1.2); }
 
-        /* 結果內容區 */
-        #結果區 { display: none; text-align: left; animation: 慢慢浮現 1s ease; }
-        .解析卡 { padding: 25px; border: 1px solid var(--細節金); background: var(--霧黑); margin-top: 30px; border-radius: 2px; }
-        .解析卡 h3 { color: var(--雲漾金); font-weight: 500; margin-top: 0; border-bottom: 1px solid var(--細節金); padding-bottom: 10px; font-size: 17px; }
+        /* 結果區塊 */
+        #結果區 { display: none; text-align: left; margin-top: 20px; }
+        .解析卡 { padding: 25px; border: 1px solid var(--細節金); background: var(--霧黑); margin-bottom: 25px; border-radius: 2px; }
+        .解析卡 h3 { color: var(--雲漾金); font-weight: 500; margin: 0 0 15px 0; border-bottom: 1px solid var(--細節金); padding-bottom: 10px; font-size: 17px; }
         .分析文字 { font-size: 16px; line-height: 1.8; color: #ccc; }
-
-        .水晶推薦框 { display: flex; align-items: flex-start; gap: 15px; margin-top: 25px; padding: 20px; border: 1px dashed var(--細節金); }
+        .水晶推薦框 { display: flex; align-items: flex-start; gap: 15px; padding: 20px; border: 1px dashed var(--細節金); background: rgba(212, 180, 131, 0.05); }
         .推薦標題 { color: var(--雲漾金); font-weight: bold; font-size: 15px; display: block; margin-bottom: 5px; }
 
-        .能量堅持 { font-size: 13px; color: #777; margin-top: 40px; padding-top: 20px; border-top: 1px solid #333; line-height: 1.8; }
+        /* 專業能量堅持（精神喊話） */
+        .能量堅持 { font-size: 13px; color: #888; margin-top: 40px; padding: 25px 0; border-top: 1px solid #333; line-height: 1.8; text-align: left; }
         .堅持項 { margin-bottom: 12px; }
         .堅持項 b { color: var(--雲漾金); font-weight: 500; }
-
-        @keyframes 慢慢浮現 { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
-
 <div class="背景光暈"></div>
-
 <div class="容器">
     <img src="IMG_0238.jpeg" alt="YUN YANG Logo" class="品牌標誌">
     <h1>靈魂指南針</h1>
-    
-    <div class="序言">
-        探尋生命數字的奧秘，<br>
-        找回專屬於您的能量頻率。
-    </div>
-
+    <div class="序言">探尋生命數字的奧秘，<br>找回專屬於您的能量頻率。</div>
     <div class="操作區">
         <input type="tel" id="生日碼" placeholder="西元生日 8 碼" maxlength="8">
         <br>
@@ -115,21 +62,19 @@
             <h3>✨ 給您的能量絮語</h3>
             <div class="分析文字" id="內容"></div>
         </div>
-
         <div class="水晶推薦框">
             <div style="font-size: 24px;">🌿</div>
             <div>
                 <span class="推薦標題">真心建議的能量媒介：</span>
                 <span id="水晶建議" style="font-size: 17px; color: #fff; font-weight: bold;"></span>
-                <p style="font-size: 13px; color: #888; margin: 8px 0 0;">這款礦石的振動頻率與您目前的需求最為契合，能溫柔地協助您調頻。</p>
+                <p style="font-size: 13px; color: #aaa; margin: 8px 0 0;">這款礦石的振動頻率與您目前的需求最為契合。</p>
             </div>
         </div>
-
         <div class="能量堅持">
-            <div style="color: var(--雲漾金); margin-bottom: 10px; font-weight: bold;">關於雲漾的能量堅持：</div>
+            <div style="color: var(--雲漾金); margin-bottom: 15px; font-weight: bold; font-size: 15px; letter-spacing: 1px;">關於雲漾的能量堅持：</div>
             <div class="堅持項"><b>• 純淨度 (Clarity)：</b>我們深知能量傳導的重要性，僅挑選高淨度礦石以確保頻率無雜訊。</div>
-            <div class="堅持項"><b>• 稀有性 (Rarity)：</b>頂級原礦是大自然億萬年的精華，與您的尊貴能量相稱。</div>
-            <div class="堅持項"><b>• 頻率契合度：</b>完整的晶體結構能產生穩定的「壓電效應 (Piezoelectricity)」，提供更持久的調頻支持。</div>
+            <div class="堅持項"><b>• 稀有性 (Rarity)：</b>頂級原礦是大自然億萬年的精華，這與高端客戶的「身份位階」相稱。</div>
+            <div class="堅持項"><b>• 頻率契合度：</b>完整的晶體結構能產生穩定的「壓電效應 (Piezoelectricity)」，對於長期佩戴調頻效果更佳。</div>
         </div>
     </div>
 </div>
@@ -144,20 +89,27 @@
 
     function 開始計算() {
         const input = document.getElementById('生日碼').value;
-        if (input.length !== 8) { alert("請輸入 8 位數字生日。"); return; }
+        if (input.length !== 8) { alert("請輸入 8 位數字生日 (如 19900101)"); return; }
 
+        // 轉換格式 DDMMYYYY
         const d = input.substring(6, 8) + input.substring(4, 6) + input.substring(0, 4);
         const l1 = d.split('').map(Number);
-        const l2 = []; for(let i=0; i<8; i+=2) l2.push(靈數加法(l1[i], l1[i+1]));
-        const l3 = []; for(let i=0; i<4; i+=2) l3.push(靈數加法(l2[i], l2[i+1]));
+        
+        const l2 = []; 
+        for(let i=0; i<8; i+=2) l2.push(靈數加法(l1[i], l1[i+1]));
+        
+        const l3 = []; 
+        for(let i=0; i<4; i+=2) l3.push(靈數加法(l2[i], l2[i+1]));
+        
         const peak = 靈數加法(l3[0], l3[1]);
 
+        // 顯示數字到球體
         document.getElementById('底1').innerText = l2[0];
         document.getElementById('底2').innerText = l2[1];
         document.getElementById('底3').innerText = l2[2];
         document.getElementById('底4').innerText = l2[3];
         document.getElementById('中左').innerText = l3[0];
-        document.getElementById('中right' ? '中右' : '').innerText = l3[1];
+        document.getElementById('中右').innerText = l3[1];
         document.getElementById('巔峰').innerText = peak;
 
         const db = {
@@ -175,9 +127,15 @@
         const res = db[peak] || db[1];
         document.getElementById('水晶建議').innerText = res.c;
         document.getElementById('內容').innerText = res.a;
+
+        // 顯示區塊
         document.getElementById('矩陣圖').style.display = 'flex';
         document.getElementById('結果區').style.display = 'block';
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        
+        // 自動捲動
+        setTimeout(() => {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }, 300);
     }
 </script>
 </body>
