@@ -23,20 +23,20 @@
         .節點 { width: 42px; height: 42px; line-height: 42px; border-radius: 50%; border: 1px solid var(--細節金); margin: 0 8px; font-size: 16px; color: var(--雲漾金); background: rgba(255,255,255,0.02); }
         .節點.核心 { border-color: var(--雲漾金); background: var(--雲漾金); color: #2a2218; box-shadow: 0 0 20px rgba(212, 180, 131, 0.4); transform: scale(1.15); font-weight: bold; }
 
-        /* 量化指標樣式 */
-        .量化區 { margin: 25px 0; text-align: left; background: rgba(212, 180, 131, 0.05); padding: 20px; border-radius: 4px; border: 1px solid var(--細節金); }
-        .指標項 { margin-bottom: 15px; }
-        .指標標籤 { font-size: 12px; color: var(--雲漾金); display: flex; justify-content: space-between; margin-bottom: 5px; letter-spacing: 1px; }
-        .進度條外框 { height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; }
-        .進度條內嵌 { height: 100%; background: var(--雲漾金); width: 0%; transition: width 1.5s cubic-bezier(0.1, 0, 0.3, 1); }
+        /* 量化指標樣式 - 針對 Roger 邏輯優化 */
+        .量化區 { margin: 25px 0; text-align: left; background: rgba(212, 180, 131, 0.05); padding: 25px; border-radius: 4px; border: 1px solid var(--細節金); }
+        .指標項 { margin-bottom: 18px; }
+        .指標標籤 { font-size: 12px; color: var(--雲漾金); display: flex; justify-content: space-between; margin-bottom: 6px; letter-spacing: 1px; }
+        .進度條外框 { height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; }
+        .進度條內嵌 { height: 100%; background: linear-gradient(90deg, #b08d57, var(--雲漾金)); width: 0%; transition: width 2s cubic-bezier(0.22, 1, 0.36, 1); }
 
-        /* 結果顯示 */
         #結果區 { display: none; text-align: left; margin-top: 20px; }
-        .解析卡 { padding: 25px; border: 1px solid var(--細節金); background: var(--岩灰黑); margin-bottom: 25px; border-radius: 2px; position: relative; }
+        .解析卡 { padding: 25px; border: 1px solid var(--細節金); background: var(--岩灰黑); margin-bottom: 25px; border-radius: 2px; }
         .解析卡 h3 { color: var(--雲漾金); font-weight: 500; margin: 0 0 15px 0; border-bottom: 1px solid var(--細節金); padding-bottom: 10px; font-size: 17px; letter-spacing: 2px; }
-        .分析文字 { font-size: 15px; line-height: 2; color: #cfcfcf; }
+        .分析文字 { font-size: 15px; line-height: 2.1; color: #cfcfcf; }
+        .警告文字 { color: var(--雲漾金); font-size: 13px; font-weight: bold; display: block; margin-top: 15px; padding: 10px; border-left: 2px solid var(--雲漾金); background: rgba(212, 180, 131, 0.05); }
 
-        .水晶推薦框 { display: flex; align-items: flex-start; gap: 15px; padding: 20px; border: 1px dashed var(--細節金); background: rgba(212, 180, 131, 0.03); }
+        .水晶推薦框 { display: flex; align-items: center; gap: 15px; padding: 20px; border: 1px dashed var(--細節金); background: rgba(212, 180, 131, 0.05); box-shadow: 0 0 15px rgba(212, 180, 131, 0.1); }
         .推薦標題 { color: var(--雲漾金); font-weight: bold; font-size: 15px; display: block; margin-bottom: 5px; }
 
         .導流區 { margin-top: 30px; display: flex; flex-direction: column; gap: 15px; }
@@ -52,9 +52,9 @@
     <h1>靈魂金字塔天賦系統</h1>
     <div class="操作區">
         <input type="tel" id="生日碼" placeholder="19900101" maxlength="8">
-        <div class="格式提醒">請輸入西元生日 8 碼</div>
+        <div class="格式提醒">輸入西元生日 8 碼 (YYYYMMDD)</div>
         <br>
-        <button class="主按鈕" onclick="開始計算()">啟動能量分析</button>
+        <button class="主按鈕" onclick="開始計算()">測量能量天賦</button>
     </div>
 
     <div class="能量矩陣" id="矩陣圖">
@@ -68,40 +68,29 @@
 
     <div id="結果區">
         <div class="量化區">
-            <div class="指標項">
-                <div class="指標標籤"><span>領袖創新 (Dynamo)</span><span id="分1">0%</span></div>
-                <div class="進度條外框"><div class="進度條內嵌" id="條1"></div></div>
-            </div>
-            <div class="指標項">
-                <div class="指標標籤"><span>執行落地 (Steel)</span><span id="分2">0%</span></div>
-                <div class="進度條外框"><div class="進度條內嵌" id="條2"></div></div>
-            </div>
-            <div class="指標項">
-                <div class="指標標籤"><span>人際共感 (Blaze)</span><span id="分3">0%</span></div>
-                <div class="進度條外框"><div class="進度條內嵌" id="條3"></div></div>
-            </div>
-            <div class="指標項">
-                <div class="指標標籤"><span>邏輯智慧 (Tempo)</span><span id="分4">0%</span></div>
-                <div class="進度條外框"><div class="進度條內嵌" id="條4"></div></div>
-            </div>
+            <div class="指標項"><div class="指標標籤"><span>領袖創新 (Dynamo)</span><span id="分1">0%</span></div><div class="進度條外框"><div class="進度條內嵌" id="條1"></div></div></div>
+            <div class="指標項"><div class="指標標籤"><span>執行落地 (Steel)</span><span id="分2">0%</span></div><div class="進度條外框"><div class="進度條內嵌" id="條2"></div></div></div>
+            <div class="指標項"><div class="指標標籤"><span>人際共感 (Blaze)</span><span id="分3">0%</span></div><div class="進度條外框"><div class="進度條內嵌" id="條3"></div></div></div>
+            <div class="指標項"><div class="指標標籤"><span>邏輯智慧 (Tempo)</span><span id="分4">0%</span></div><div class="進度條外框"><div class="進度條內嵌" id="條4"></div></div></div>
         </div>
 
         <div class="解析卡">
-            <h3>✨ 巔峰天賦解析</h3>
+            <h3>⚡ 能量天賦診斷</h3>
             <div class="分析文字" id="內容"></div>
+            <div class="警告文字" id="痛點警告"></div>
         </div>
 
         <div class="水晶推薦框">
-            <div style="font-size: 24px;">🌿</div>
+            <div style="font-size: 24px;">🔮</div>
             <div>
-                <span class="推薦標題">建議的能量媒介 (補足缺口)：</span>
+                <span class="推薦標題">能量缺口補強方案：</span>
                 <span id="水晶建議" style="font-size: 17px; color: #fff; font-weight: bold;"></span>
             </div>
         </div>
 
         <div class="導流區">
-            <a href="https://lin.ee/Nsksu05" target="_blank" class="導流按鈕 強調">了解更深層的自己 (預約 LINE 諮詢)</a>
-            <a href="https://yunyangjewelry.com/" target="_blank" class="導流按鈕">進入雲漾官網 (探索能量原礦)</a>
+            <a href="https://lin.ee/Nsksu05" target="_blank" class="導流按鈕 強調">預約雲漾一對一能量諮詢</a>
+            <a href="https://yunyangjewelry.com/" target="_blank" class="導流按鈕">進入官網探索補強原礦</a>
             <a href="https://www.instagram.com/yunyang.bespoke?igsh=MXBiNXBjcWJzYmJ1eQ%3D%3D&utm_source=qr" target="_blank" class="導流按鈕">📸 返回 Instagram </a>
         </div>
     </div>
@@ -117,50 +106,48 @@
 
     function 開始計算() {
         const input = document.getElementById('生日碼').value;
-        if (input.length !== 8) { alert("請輸入完整生日 8 碼"); return; }
+        if (input.length !== 8) { alert("請輸入完整 8 碼生日"); return; }
         
-        // 金字塔邏輯計算
         const d = input.substring(6, 8) + input.substring(4, 6) + input.substring(0, 4);
         const l1 = d.split('').map(Number);
         const l2 = []; for(let i=0; i<8; i+=2) l2.push(靈數加法(l1[i], l1[i+1]));
         const l3 = []; for(let i=0; i<4; i+=2) l3.push(靈數加法(l2[i], l2[i+1]));
         const peak = 靈數加法(l3[0], l3[1]);
 
-        // 渲染金字塔
         document.getElementById('底1').innerText = l2[0]; document.getElementById('底2').innerText = l2[1];
         document.getElementById('底3').innerText = l2[2]; document.getElementById('底4').innerText = l2[3];
         document.getElementById('中左').innerText = l3[0]; document.getElementById('中右').innerText = l3[1];
         document.getElementById('巔峰').innerText = peak;
 
-        // Roger式量化權重邏輯 (九宮格為骨，金字塔為皮)
+        // Roger 式極端權重：強項極強，弱項極低
         const scores = {
-            1: [95, 65, 45, 70], 2: [45, 50, 95, 80], 3: [92, 45, 88, 65],
-            4: [55, 95, 60, 85], 5: [88, 75, 70, 70], 6: [50, 60, 95, 80],
-            7: [65, 85, 55, 98], 8: [85, 98, 60, 88], 9: [75, 65, 92, 95]
+            1: [98, 40, 25, 65], 2: [30, 20, 96, 75], 3: [94, 15, 85, 45],
+            4: [25, 98, 30, 80], 5: [92, 45, 65, 85], 6: [20, 50, 98, 65],
+            7: [50, 80, 15, 98], 8: [40, 98, 45, 90], 9: [65, 25, 95, 95]
         };
         const s = scores[peak];
         
-        // 更新進度條
         [1,2,3,4].forEach(i => {
             document.getElementById('條'+i).style.width = s[i-1] + '%';
             document.getElementById('分'+i).innerText = s[i-1] + '%';
         });
 
         const db = {
-            1: { c: "紅超七 / 金草莓晶", a: "您是天生的發電機。具備極強的領袖直覺與開創力。在量化指標中，您的『創新力』最為突出。建議佩戴紅色系水晶，幫助您在衝刺時保有溫柔的定力。" },
-            2: { c: "海藍寶 / 馬島月光石", a: "您是天生的協調者。對能量波動極度敏感。您的『人際共感』分數極高，能看透人心。海藍寶將守護您的溝通能量，讓您的溫柔更具力量。" },
-            3: { c: "高端鈦晶 / 金太陽石", a: "您的靈魂充滿表達力與熱情。在商業天賦中，您擅長點燃他人的動力。金色系水晶能強化您的顯化能力，將創意變現。" },
-            4: { c: "頂級綠幽靈 / 綠髮晶", a: "您是能量的築路者。穩定與系統化是您的天賦。您的『執行落地』分數優異，這款水晶能幫助您吸引正財，建立長久的事業根基。" },
-            5: { c: "葡萄石 / 橄欖石", a: "自由與冒險是您的核心。您擅長突破框架，在變動中看見商機。綠色系礦石能穩定您的心念，讓您在探索中不迷失方向。" },
-            6: { c: "星光粉晶 / 綠兔毛", a: "您是能量的守護者。具備強大的慈悲心與療癒力。您的存在能讓團隊更具凝聚力。粉色礦石能補盈您的心輪，讓您在照顧他人時也豐盛自己。" },
-            7: { c: "紫超七 / 拉長石", a: "您是真理的追求者。具備極高的『邏輯智慧』指標。您適合從事策略與深度研究。紫色系水晶能開啟您的直覺，讓您看清事物的本質。" },
-            8: { c: "金運石 / 黑髮晶", a: "您是顯化財富的高手。具備掌控權威與資源的天賦。您的『執行與權力』指標達到頂峰。黑色系水晶能提供最強的護身效果，守護您的豐盛磁場。" },
-            9: { c: "全頻超七 / 極光 23", a: "您是靈魂的修行者，具備全方位的能量特質。您的『共感與智慧』雙高，適合引領人心。全頻率水晶能校準您的全身能量，達成最高品質的顯化。" }
+            1: { c: "紅超七 / 金太陽石", a: "您的領袖能量極度強大，開創力突破 95%。您是天生的發電機，擅長從無到有創造奇蹟。", w: "⚠️ 注意：您的人際共感分數較低，容易因過於衝刺而忽略團隊情感，這會導致孤軍奮戰。" },
+            2: { c: "海藍寶 / 馬島月光石", a: "您的人際共感達到峰值，具備看穿人心的天賦。您能精準調和團隊矛盾，是靈魂的療癒者。", w: "⚠️ 警告：您的執行與創新分數不足，容易陷入猶豫不決，需要水晶來加強行動的果斷性。" },
+            3: { c: "高端鈦晶 / 金太陽石", a: "您的創意表達能量極高。您具備點燃他人熱情的天賦，在推廣與銷售上有著天然的魅力。", w: "⚠️ 警告：您的『執行落地』分數嚴重不足（僅 15%），計畫容易流於空談，極度需要能量支撐落地。" },
+            4: { c: "頂級綠幽靈 / 綠髮晶", a: "您的系統化與落地執行力達到 98%。您能將任何混亂的專案整理得井井有條，是財富的穩健守護者。", w: "⚠️ 注意：您的『領袖創新』偏低，容易因循守舊而錯失變革良機。建議配戴綠色系水晶打破僵化。" },
+            5: { c: "葡萄石 / 橄欖石", a: "您的天賦在於『變革與自由』。您具備極高的適應力，能在混亂中找到商機，邏輯與策略也十分優異。", w: "⚠️ 注意：您的人際能量較分散，建議補強心輪能量，讓您在變動中依然能獲得貴人相助。" },
+            6: { c: "星光粉晶 / 綠兔毛", a: "您具備極致的服務與守護天賦。在人際與和平指標上趨於完美，適合經營高端社群或療癒產業。", w: "⚠️ 警告：您的『領袖與創新』分數較低，過於在意他人評價會讓您失去自我主見。" },
+            7: { c: "紫超七 / 拉長石", a: "您的智慧指標接近滿分。您能洞察常人看不見的邏輯與真相，是靈魂的策略家與真理探索者。", w: "⚠️ 警告：您的人際指標偏低（15%），容易顯得孤傲難以親近，建議佩戴拉長石來柔化氣場。" },
+            8: { c: "金運石 / 黑髮晶 / 黑銀鈦", a: "您的『執行與權威』指標達到雙巔峰。您是天生的企業家或管理者，能精準顯化物質財富。", w: "⚠️ 注意：您的創新指標中等，維持成功的同時請配戴黑色系水晶守護既有的豐盛成果。" },
+            9: { c: "全頻超七 / 極光 23", a: "您的天賦處於靈魂導師的高度。智慧與共感能量雙雙突破 95%，能引領大眾走向更高的維度。", w: "⚠️ 警告：您的『執行落地』分數較低，過於理想化會讓計畫難以在現實中開花結果。" }
         };
 
         const res = db[peak] || db[1];
         document.getElementById('水晶建議').innerText = res.c;
         document.getElementById('內容').innerText = res.a;
+        document.getElementById('痛點警告').innerText = res.w;
 
         document.getElementById('矩陣圖').style.display = 'flex';
         document.getElementById('結果區').style.display = 'block';
